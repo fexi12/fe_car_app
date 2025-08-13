@@ -1,0 +1,47 @@
+# Frontend caches/build
+**/node_modules/
+**/.next/
+**/.next.cache/
+**/out/
+**/build/
+**/dist/
+*.tsbuildinfo
+
+# Tool caches
+.eslintcache
+.stylelintcache
+.vite/
+**/node_modules/.cache/
+parcel-cache/
+
+# Testing/coverage
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# Env files
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+!.env.example
+
+# Logs / temp
+*.log
+logs/
+*.pid
+tmp/
+temp/
+
+# Editors / OS
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
