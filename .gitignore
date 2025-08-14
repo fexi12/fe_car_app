@@ -45,3 +45,5 @@ temp/
 *.iml
 .DS_Store
 Thumbs.db
+
+*workspace
