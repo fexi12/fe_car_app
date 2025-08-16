@@ -1,6 +1,7 @@
 export const metadata = { title: "Car App" };
 import "./globals.css";
 import Link from "next/link";
+import { fontInter } from "./fonts";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,7 +1,8 @@
 // app/fonts.ts
 import { Inter } from "next/font/google";
-export const inter = Inter({ subsets: ["latin"] });
 
-// app/layout.tsx
-import { inter } from "./fonts";
-<body className={inter.className}>...</body>
+export const fontInter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  // optional: variable: "--font-inter",
+});
