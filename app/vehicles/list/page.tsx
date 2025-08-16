@@ -24,11 +24,6 @@ function toPhotoURL(p?: string | null) {
   return `${BE_PUBLIC}/uploads/${encodeURIComponent(p)}`;
 }
 
-function unwrap<T>(x: ApiListResp<T> | T): T {
-  // @ts-expect-error runtime check
-  return (x && typeof x === "object" && "ok" in x) ? (x as ApiListResp<T>).data : (x as T);
-}
-
 export default function Home() {
   // table data
   const [data, setData] = useState<Vehicle[] | null>(null);
