@@ -19,7 +19,7 @@ export default function LoginPage() {
                 body: JSON.stringify({ username, password }),
               });
       if (!res.ok) throw new Error(await res.text());
-      window.location.href = "/";
+      window.location.href = "/vehicles/list";
     } catch (e: any) {
       setErr(e.message || "Erro de login");
     } finally {

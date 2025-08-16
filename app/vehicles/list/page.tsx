@@ -22,12 +22,14 @@ type VehicleDetails = {
   [k: string]: any;
 };
 
-const BE_PUBLIC = process.env.BACKEND_URL!; // e.g., http://localhost:5000
+const BE_PUBLIC = process.env.NEXT_PUBLIC_BACKEND_URL; // e.g., http://localhost:5000
 
 // Build a browser-usable photo URL
 function toPhotoURL(p?: string | null) {
   if (!p) return "";
   if (/^https?:\/\//i.test(p)) return p; // already absolute
+  console.log(BE_PUBLIC);
+
   return `${BE_PUBLIC}/uploads/${encodeURIComponent(p)}`;
 }
 
@@ -128,7 +130,14 @@ export default function Home() {
                     className="inline-block rounded-xl border px-3 py-1.5 hover:bg-gray-100"
                     title="Ver detalhes"
                   >
-                    Ver detalhes →
+                    Ver detalhes
+                  </Link>
+                   <Link
+                    href={`/vehicles/${v.id}/edit`}
+                    className="inline-block rounded-xl border px-3 py-1.5 hover:bg-gray-100"
+                    title="Ver detalhes"
+                  >
+                    Editar
                   </Link>
                 </td>
               </tr>

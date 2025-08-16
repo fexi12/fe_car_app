@@ -2,6 +2,9 @@
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+
+
 
 type Vehicle = {
   id: number;
@@ -12,7 +15,7 @@ type Vehicle = {
 async function getVehicle(id: string) {
   const h = headers();
   const cookie = h.get("cookie") ?? "";
-  const backend = process.env.BACKEND_URL!; // e.g., http://localhost:5000
+  const backend = process.env.NEXT_PUBLIC_BACKEND_URL; // e.g., http://localhost:5000
 
   const res = await fetch(`${backend}/api/vehicles/${id}`, {
     headers: { cookie },          // forward browser cookie to backend
@@ -26,7 +29,7 @@ async function getVehicle(id: string) {
 export default async function Page({ params }: { params: { id: string } }) {
   const vehicle = await getVehicle(params.id);
   const photoUrl = (p: string) =>
-    /^https?:\/\//i.test(p) ? p : `${process.env.BACKEND_URL}/uploads/${encodeURIComponent(p)}`;
+    /^https?:\/\//i.test(p) ? p : `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/${encodeURIComponent(p)}`;
 
   return (
     <div className="mx-auto max-w-5xl p-6 space-y-6">
@@ -80,3 +83,5 @@ export default async function Page({ params }: { params: { id: string } }) {
     </div>
   );
 }
+
+

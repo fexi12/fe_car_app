@@ -16,7 +16,7 @@ export default function NewVehicle() {
         body: fd
       });
       if (!res.ok) throw new Error(await res.text());
-      window.location.href = "/";
+      window.location.href = "/vehicles/list";
     } catch (e:any) {
       setErr(e.message || "Erro ao gravar");
     } finally {
@@ -28,13 +28,13 @@ export default function NewVehicle() {
     <div className="card max-w-2xl mx-auto">
       <h2 className="text-xl font-semibold mb-4">Novo veículo</h2>
       <form onSubmit={onSubmit} className="grid grid-cols-2 gap-3">
-        <input className="input col-span-1" name="marca" placeholder="Marca" required />
-        <input className="input col-span-1" name="modelo" placeholder="Modelo" required />
-        <input className="input col-span-1" type="number" name="CC" placeholder="CC" />
+        <input className="input col-span-1" name="marca" placeholder="Marca" />
+        <input className="input col-span-1" name="modelo" placeholder="Modelo" />
+        <input className="input col-span-1" name="CC" placeholder="CC" />
         <input className="input col-span-1" name="cor" placeholder="Cor" />
-        <input className="input col-span-1" name="matricula" placeholder="Matrícula" required />
-        <input className="input col-span-1" type="number" name="ano" placeholder="Ano" />
-        <input className="input col-span-1" type="number" name="num_lugares" placeholder="Nº lugares" />
+        <input className="input col-span-1" name="matricula" placeholder="Matrícula" />
+        <input className="input col-span-1" name="ano" placeholder="Ano" />
+        <input className="input col-span-1" name="num_lugares" placeholder="Nº lugares" />
         <input className="input col-span-1" name="local_garagem" placeholder="Local garagem" />
         <input className="input col-span-2" name="estado_geral" placeholder="Estado geral" />
         <div className="col-span-2">
