@@ -57,7 +57,7 @@ export default function EditVehicleForm({ id, initial }: { id: string; initial: 
         <input className="input" name="matricula" required defaultValue={initial?.matricula ?? ""} />
         <input className="input" type="number" name="ano" defaultValue={initial?.ano ?? undefined} />
         <input className="input" type="number" name="num_lugares" defaultValue={initial?.num_lugares ?? undefined} />
-        <input className="input col-span-2" name="estado_geral" defaultValue={initial?.estado_geral ?? ""} />
+        <input className="input col-span-2" name="N_geral" defaultValue={initial?.estado_geral ?? ""} />
 
         {/* existing photos with delete checkboxes */}
         <div className="col-span-2">

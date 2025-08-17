@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import Link from "next/link";
 import GalleryModal from "@/components/GalleryModal";
+import ConfirmModal from "@/components/ConfirmModal";
 import { api } from "lib/api";
 
 type Vehicle = {
@@ -42,6 +43,11 @@ export default function Home() {
   const [images, setImages] = useState<string[]>([]);
   const [index, setIndex] = useState(0);
   const [title, setTitle] = useState<string>("");
+
+
+  // Confirm delete state
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleteLabel, setDeleteLabel] = useState<string>("");
 
   const totalPages = useMemo(() => Math.max(1, Math.ceil(total / perPage)), [total, perPage]);
 
@@ -107,6 +113,24 @@ export default function Home() {
       setErr(e.message || "Erro ao abrir galeria");
     }
   }, []);
+
+  const onDelete = async () => {
+    if (!deleteId) return;
+    try {
+      const res = await fetch(`/api/vehicles/${deleteId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const json = await res.json();
+      if (!res.ok || json.ok === false)
+        throw new Error(json?.error?.message || "Erro ao eliminar");
+      setData(prev => prev ? prev.filter(x => x.id !== deleteId) : prev);
+      setDeleteId(null);
+    } catch (e: any) {
+      setErr(e.message || "Erro ao eliminar veículo");
+      setDeleteId(null);
+    }
+  };
 
   const onClose = () => setOpen(false);
   const onPrev = () => setIndex(i => (images.length ? (i - 1 + images.length) % images.length : 0));
@@ -194,6 +218,13 @@ export default function Home() {
                       <Link href={`/vehicles/${v.id}`} className="inline-block rounded-xl border px-3 py-1.5 hover:bg-gray-100">Ver</Link>
                       {" "}
                       <Link href={`/vehicles/${v.id}/edit`} className="inline-block rounded-xl border px-3 py-1.5 hover:bg-gray-100">Editar</Link>
+                    {" "}
+                   <button
+                    onClick={() => { setDeleteId(v.id); setDeleteLabel(label); }}
+                    className="inline-block rounded-xl border border-red-600 bg-red-500 text-white px-3 py-1.5 hover:bg-red-600"
+                  >
+                    Eliminar
+                  </button>
                     </td>
                   </tr>
                 );
@@ -226,6 +257,16 @@ export default function Home() {
           Seguinte ⟶
         </button>
       </div>
+
+      {/* Confirm delete modal */}
+      <ConfirmModal
+        open={deleteId !== null}
+        title="Eliminar veículo"
+        message={`Tens a certeza que queres eliminar ${deleteLabel}?`}
+        onConfirm={onDelete}
+        onCancel={() => setDeleteId(null)}
+      />
+
 
       {/* Modal */}
       <GalleryModal
