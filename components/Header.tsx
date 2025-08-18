@@ -13,7 +13,6 @@ export default function Header() {
   useEffect(() => {
     api<StatusResponse>("/status")
       .then((res) => {
-        console.log(res);
         setStatus(res)}) // extrai direto o `data`
       .catch(() => setStatus({ data: { logged_in: false, user: { id: "", role: "", username: "" } }, ok: false }));
   }, []);

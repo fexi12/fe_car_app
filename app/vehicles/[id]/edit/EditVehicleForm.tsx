@@ -1,6 +1,7 @@
 // app/vehicles/[id]/edit/EditVehicleForm.tsx
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function EditVehicleForm({ id, initial }: { id: string; initial: any }) {
   const [busy, setBusy] = useState(false);
@@ -48,7 +49,11 @@ export default function EditVehicleForm({ id, initial }: { id: string; initial: 
 
   return (
     <div className="card max-w-2xl mx-auto">
-      <h2 className="text-xl font-semibold mb-4">Editar veículo</h2>
+            <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold">Editar Veículo</h1>
+        <Link className="underline text-sm" href="/vehicles/list">← Voltar</Link>
+      </div>
+      
       <form onSubmit={onSubmit} className="grid grid-cols-2 gap-3">
         <input className="input" name="marca" placeholder="Marca" required defaultValue={initial?.marca ?? ""} />
         <input className="input" name="modelo" placeholder="Modelo" required defaultValue={initial?.modelo ?? ""} />
@@ -58,7 +63,7 @@ export default function EditVehicleForm({ id, initial }: { id: string; initial: 
         <input className="input" type="number" placeholder="Ano" name="ano" defaultValue={initial?.ano ?? undefined} />
         <input className="input" type="number" name="num_lugares"  placeholder="Nº lugares" defaultValue={initial?.num_lugares ?? undefined} />
         <input className="input" type="local_garagem" name="local_garagem"  placeholder="Local garagem" defaultValue={initial?.local_garagem ?? undefined} />
-        <input className="input col-span-2" name="N_geral" placeholder="Estado geral" defaultValue={initial?.estado_geral ?? ""} />
+        <input className="input col-span-2" name="estado_geral" placeholder="Estado geral" defaultValue={initial?.estado_geral ?? ""} />
 
         {/* existing photos with delete checkboxes */}
         <div className="col-span-2">

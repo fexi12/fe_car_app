@@ -1,16 +1,9 @@
-// app/vehicles/[id]/page.tsx
+  // app/vehicles/[id]/page.tsx
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 
-
-type Vehicle = {
-  id: number;
-  [k: string]: any;      // other columns (make, model, year, etc.)
-  photos?: string[];
-};
 
 async function getVehicle(id: string) {
   const h = headers();
