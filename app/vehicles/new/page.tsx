@@ -1,10 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { StatusResponse } from "lib/types"; 
+import { api } from "lib/api";
 
 export default function NewVehicle() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string|null>(null);
-
+    // check login status
+  const [status, setStatus] = useState<StatusResponse | null>(null);
+  const [checkingLogin, setCheckingLogin] = useState(true);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setBusy(true); setErr(null);
@@ -24,6 +28,31 @@ export default function NewVehicle() {
     }
   };
 
+      // check login status on mount
+     useEffect(() => {
+      api<StatusResponse>("/status")
+        .then((res) => {
+          setStatus(res);
+          setCheckingLogin(false);
+        })
+        .catch(() => {
+          setStatus({ data: { logged_in: false, user: { id: "", role: "", username: "" } }, ok: false });
+          setCheckingLogin(false);
+        });
+    }, []);
+  
+    
+    if (checkingLogin) {
+      return <div className="card">A verificar sessão…</div>;
+    }
+  
+    if (!status?.data.logged_in) {
+      return (
+        <div className="card text-center text-red-600">
+          Precisas de iniciar sessão para adicionar veículos.
+        </div>
+      );
+    }
   return (
     <div className="card max-w-2xl mx-auto">
       <h2 className="text-xl font-semibold mb-4">Novo veículo</h2>

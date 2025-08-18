@@ -5,6 +5,7 @@ import Link from "next/link";
 import GalleryModal from "@/components/GalleryModal";
 import ConfirmModal from "@/components/ConfirmModal";
 import { api } from "lib/api";
+import { StatusResponse } from "lib/types"; // adjust path if needed
 
 type Vehicle = {
   id: number;
@@ -24,6 +25,7 @@ function toPhotoURL(p?: string | null) {
   if (/^https?:\/\//i.test(p)) return p;
   return `${BE_PUBLIC}/uploads/${encodeURIComponent(p)}`;
 }
+
 
 export default function Home() {
   // table data
@@ -50,6 +52,11 @@ export default function Home() {
   const [deleteLabel, setDeleteLabel] = useState<string>("");
 
   const totalPages = useMemo(() => Math.max(1, Math.ceil(total / perPage)), [total, perPage]);
+
+  // check login status
+  const [status, setStatus] = useState<StatusResponse | null>(null);
+  const [checkingLogin, setCheckingLogin] = useState(true);
+
 
   // fetch list whenever controls change
   useEffect(() => {
@@ -132,11 +139,37 @@ export default function Home() {
     }
   };
 
+
   const onClose = () => setOpen(false);
   const onPrev = () => setIndex(i => (images.length ? (i - 1 + images.length) % images.length : 0));
   const onNext = (delta = 1) => setIndex(i => (images.length ? (i + delta + images.length) % images.length : 0));
 
-  // UI
+
+    // check login status on mount
+   useEffect(() => {
+    api<StatusResponse>("/status")
+      .then((res) => {
+        setStatus(res);
+        setCheckingLogin(false);
+      })
+      .catch(() => {
+        setStatus({ data: { logged_in: false, user: { id: "", role: "", username: "" } }, ok: false });
+        setCheckingLogin(false);
+      });
+  }, []);
+
+  
+  if (checkingLogin) {
+    return <div className="card">A verificar sessão…</div>;
+  }
+
+  if (!status?.data.logged_in) {
+    return (
+      <div className="card text-center text-red-600">
+        Precisas de iniciar sessão para ver os veículos.
+      </div>
+    );
+  }
   return (
     <div className="card space-y-4">
       <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">

@@ -11,7 +11,6 @@ export default function LoginPage() {
     e.preventDefault();
     setBusy(true); setErr(null);
     try {
-      const body = new URLSearchParams({ username, password });
       const res = await fetch("/api/login", {
                 method: "POST",
                 credentials: "include",             // keep this
