@@ -50,14 +50,15 @@ export default function EditVehicleForm({ id, initial }: { id: string; initial: 
     <div className="card max-w-2xl mx-auto">
       <h2 className="text-xl font-semibold mb-4">Editar veículo</h2>
       <form onSubmit={onSubmit} className="grid grid-cols-2 gap-3">
-        <input className="input" name="marca" required defaultValue={initial?.marca ?? ""} />
-        <input className="input" name="modelo" required defaultValue={initial?.modelo ?? ""} />
-        <input className="input" type="number" name="CC" defaultValue={initial?.CC ?? undefined} />
-        <input className="input" name="cor" defaultValue={initial?.cor ?? ""} />
-        <input className="input" name="matricula" required defaultValue={initial?.matricula ?? ""} />
-        <input className="input" type="number" name="ano" defaultValue={initial?.ano ?? undefined} />
-        <input className="input" type="number" name="num_lugares" defaultValue={initial?.num_lugares ?? undefined} />
-        <input className="input col-span-2" name="N_geral" defaultValue={initial?.estado_geral ?? ""} />
+        <input className="input" name="marca" placeholder="Marca" required defaultValue={initial?.marca ?? ""} />
+        <input className="input" name="modelo" placeholder="Modelo" required defaultValue={initial?.modelo ?? ""} />
+        <input className="input" type="number" placeholder="CC" name="CC" defaultValue={initial?.CC ?? undefined} />
+        <input className="input" name="cor"  placeholder="Cor" defaultValue={initial?.cor ?? ""} />
+        <input className="input" name="matricula" placeholder="Matrícula" required defaultValue={initial?.matricula ?? ""} />
+        <input className="input" type="number" placeholder="Ano" name="ano" defaultValue={initial?.ano ?? undefined} />
+        <input className="input" type="number" name="num_lugares"  placeholder="Nº lugares" defaultValue={initial?.num_lugares ?? undefined} />
+        <input className="input" type="local_garagem" name="local_garagem"  placeholder="Local garagem" defaultValue={initial?.local_garagem ?? undefined} />
+        <input className="input col-span-2" name="N_geral" placeholder="Estado geral" defaultValue={initial?.estado_geral ?? ""} />
 
         {/* existing photos with delete checkboxes */}
         <div className="col-span-2">
