@@ -21,7 +21,7 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between mb-6">
       <h1 className="text-2xl font-semibold">
-        <Link href="/vehicles/list">Lista de Veículos</Link>
+        <Link href="/vehicles/list">Lista de Veículos <span style={{ fontSize: 32 }}>🚗</span> </Link>
       </h1>
       <nav className="flex gap-3 text-sm">
         <Link className="btn-secondary" href="/vehicles/new">
@@ -30,7 +30,7 @@ export default function Header() {
 
 {status?.data.logged_in ? (
   <button
-    className="btn-secondary"
+    className="btn-secondary" style={{ color: "grey" }}
     onClick={async () => {
       await fetch("/api/logout", { method: "POST", credentials: "include" });
       window.location.href = "/";
@@ -39,7 +39,7 @@ export default function Header() {
     Logout
   </button>
 ) : (
-  <a className="btn-secondary" href="/">
+  <a className="btn-secondary" style={{ color: "blue" }} href="/">
     Login
   </a>
 )}
